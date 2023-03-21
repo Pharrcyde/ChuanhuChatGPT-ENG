@@ -123,50 +123,50 @@
 
 	If the download is slow, we suggest [Configure Tsinghua Source](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/), or scientific Internet access.
 
-4. **启动**
+4. **Start up**
 
-	请使用下面的命令。
+	Please use the following command.
 
 	```shell
 	python ChuanhuChatbot.py
 	```
 
-	如果报错，试试
+	If an error is reported, try
 
 	```shell
 	python3 ChuanhuChatbot.py
 	```
 
-	如果还是不行，请先[安装Python](https://www.runoob.com/python/python-install.html)。
+	If it still doesn't work, please [install Python] first(https://www.runoob.com/python/python-install.html)。
 <br />
 
-如果一切顺利，现在，你应该已经可以在浏览器地址栏中输入 [`http://localhost:7860`](http://localhost:7860) 查看并使用 ChuanhuChatGPT 了。
+If all goes well, you should now be able to view and use ChuanhuChatGPT by typing [`http://localhost:7860`](http://localhost:7860) into your browser address bar.
 
-**如果你在安装过程中碰到了问题，请先查看[疑难杂症解决](#疑难杂症解决)部分。**
+**If you encounter problems during installation, please check the [Troubleshooting](#Troubleshooting) section first. **
 
-### 使用Docker运行
+### Running with Docker
 
-<details><summary>如果觉得以上方法比较麻烦，我们提供了Docker镜像</summary>
+<details><summary>If you find the above method cumbersome, we provide a Docker image</summary>
 
-#### 拉取镜像
+#### Pull Image
 
 ```shell
 docker pull tuchuanhuhuhu/chuanhuchatgpt:latest
 ```
 
-#### 运行
+#### Run
 
 ```shell
 docker run -d --name chatgpt \
-	-e my_api_key="替换成API" \
-	-e USERNAME="替换成用户名" \
-	-e PASSWORD="替换成密码" \
+	-e my_api_key="Replace with API" \
+	-e USERNAME="Replace with username" \
+	-e PASSWORD="Replace with password" \
 	-v ~/chatGPThistory:/app/history \
 	-p 7860:7860 \
 	tuchuanhuhuhu/chuanhuchatgpt:latest
 ```
 
-注：`USERNAME` 和 `PASSWORD` 两行可省略。若省略则不会启用认证。
+Note: The `USERNAME` and `PASSWORD` lines can be omitted. If omitted, authentication will not be enabled.
 
 #### 查看运行状态
 ```shell
