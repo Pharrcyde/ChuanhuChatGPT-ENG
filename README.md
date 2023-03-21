@@ -43,7 +43,7 @@
 |[UsageTips](#UsageTips)|[Installation](#Installation)|[Troubleshooting](#Troubleshooting)| [Buy a Coke for the author🥤](#Donation) |
 |  ----  | ----  | ----  | --- |
 
-## Usage Tips
+## UsageTips
 
 - Prerequisites can be set very efficiently using System Prompt.
 - To use the Prompt template function, select the Prompt template collection file and then select the desired prompt from the drop-down menu.
