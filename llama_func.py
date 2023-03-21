@@ -80,11 +80,11 @@ def construct_index(
     )
     documents, index_name = get_documents(file_src)
     if os.path.exists(f"./index/{index_name}.json"):
-        logging.info("找到了缓存的索引文件，加载中……")
+        logging.info("Cached index file found, loading ......")
         return GPTSimpleVectorIndex.load_from_disk(f"./index/{index_name}.json")
     else:
         try:
-            logging.debug("构建索引中……")
+            logging.debug("Building index in ......")
             index = GPTSimpleVectorIndex(
                 documents, llm_predictor=llm_predictor, prompt_helper=prompt_helper
             )
@@ -118,7 +118,7 @@ def chat_ai(
         context,
     )
     if response is None:
-        status_text = "查询失败，请换个问法试试"
+        status_text = "Query failed, please try a different question"
         return context, chatbot
     response = response
 
@@ -178,7 +178,7 @@ def ask_ai(
             f"Response: {colorama.Fore.BLUE}{ret_text}{colorama.Style.RESET_ALL}"
         )
         os.environ["OPENAI_API_KEY"] = ""
-        return ret_text, new_response, f"查询消耗了{llm_predictor.last_token_usage} tokens"
+        return ret_text, new_response, f "The query consumed {llm_predictor.last_token_usage} tokens"
     else:
         logging.warning("No response found, returning None")
         os.environ["OPENAI_API_KEY"] = ""
