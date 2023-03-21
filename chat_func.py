@@ -58,11 +58,11 @@ def get_response(
     else:
         timeout = timeout_all
 
-    # 获取环境变量中的代理设置
+    # Get the proxy settings in environment variables
     http_proxy = os.environ.get("HTTP_PROXY") or os.environ.get("http_proxy")
     https_proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
 
-    # 如果存在代理设置，使用它们
+    # If proxy settings exist, use them
     proxies = {}
     if http_proxy:
         logging.info(f"Using HTTP proxy: {http_proxy}")
@@ -71,7 +71,7 @@ def get_response(
         logging.info(f"Using HTTPS proxy: {https_proxy}")
         proxies["https"] = https_proxy
 
-    # 如果有代理，使用代理发送请求，否则使用默认设置发送请求
+    # If there is a proxy, use the proxy to send the request, otherwise use the default settings to send the request
     if proxies:
         response = requests.post(
             API_URL,
@@ -108,10 +108,10 @@ def stream_predict(
     def get_return_value():
         return chatbot, history, status_text, all_token_counts
 
-    logging.info("实时回答模式")
+    logging.info("Real-time answer mode")
     partial_words = ""
     counter = 0
-    status_text = "开始实时传输回答……"
+    status_text = "Starting real-time transmission of answers to ......"
     history.append(construct_user(inputs))
     history.append(construct_assistant(""))
     if fake_input:
@@ -127,7 +127,7 @@ def stream_predict(
     else:
         user_token_count = count_token(construct_user(inputs))
     all_token_counts.append(user_token_count)
-    logging.info(f"输入token计数: {user_token_count}")
+    logging.info(f "Input token count: {user_token_count}")
     yield get_return_value()
     try:
         response = get_response(
@@ -167,7 +167,7 @@ def stream_predict(
             except json.JSONDecodeError:
                 logging.info(chunk)
                 error_json_str += chunk
-                status_text = f"JSON解析错误。请重置对话。收到的内容: {error_json_str}"
+                status_text = f "JSON parsing error. Please reset the conversation. Received: {error_json_str}"
                 yield get_return_value()
                 continue
             # decode each line as response data is in bytes
@@ -186,7 +186,7 @@ def stream_predict(
                 except KeyError:
                     status_text = (
                         standard_error_msg
-                        + "API回复中找不到内容。很可能是Token计数达到上限了。请重置对话。当前Token计数: "
+                        + "Content not found in API reply. It is likely that the Token count has reached the upper limit. Please reset the conversation. Current Token Count: "
                         + str(sum(all_token_counts))
                     )
                     yield get_return_value()
@@ -210,7 +210,7 @@ def predict_all(
     fake_input=None,
     display_append=""
 ):
-    logging.info("一次性回答模式")
+    logging.info("One-time answer mode")
     history.append(construct_user(inputs))
     history.append(construct_assistant(""))
     if fake_input:
@@ -266,11 +266,11 @@ def predict(
 ):  # repetition_penalty, top_k
     logging.info("输入为：" + colorama.Fore.BLUE + f"{inputs}" + colorama.Style.RESET_ALL)
     if files:
-        msg = "构建索引中……（这可能需要比较久的时间）"
+        msg = "Building index in ...... (this may take a bit longer)"
         logging.info(msg)
         yield chatbot, history, msg, all_token_counts
         index = construct_index(openai_api_key, file_src=files)
-        msg = "索引构建完成，获取回答中……"
+        msg = "Index build complete, fetching answer in ......"
         yield chatbot, history, msg, all_token_counts
         history, chatbot, status_text = chat_ai(openai_api_key, index, inputs, history, chatbot)
         yield chatbot, history, status_text, all_token_counts
@@ -283,7 +283,7 @@ def predict(
         old_inputs = inputs
         web_results = []
         for idx, result in enumerate(search_results):
-            logging.info(f"搜索结果{idx + 1}：{result}")
+            logging.info(f "Search result {idx + 1}: {result}")
             domain_name = urllib3.util.parse_url(result["href"]).host
             web_results.append(f'[{idx+1}]"{result["body"]}"\nURL: {result["href"]}')
             link_references.append(f"{idx+1}. [{domain_name}]({result['href']})\n")
@@ -309,10 +309,10 @@ def predict(
         yield chatbot, history, status_text, all_token_counts
         return
 
-    yield chatbot, history, "开始生成回答……", all_token_counts
+    yield chatbot, history, "Start generating answers to ......", all_token_counts
 
     if stream:
-        logging.info("使用流式传输")
+        logging.info("Using streaming")
         iter = stream_predict(
             openai_api_key,
             system_prompt,
@@ -329,7 +329,7 @@ def predict(
         for chatbot, history, status_text, all_token_counts in iter:
             yield chatbot, history, status_text, all_token_counts
     else:
-        logging.info("不使用流式传输")
+        logging.info("Not using streaming")
         chatbot, history, status_text, all_token_counts = predict_all(
             openai_api_key,
             system_prompt,
@@ -345,10 +345,10 @@ def predict(
         )
         yield chatbot, history, status_text, all_token_counts
 
-    logging.info(f"传输完毕。当前token计数为{all_token_counts}")
+    logging.info(f "Transfer completed. Current token count is {all_token_counts}")
     if len(history) > 1 and history[-1]["content"] != inputs:
         logging.info(
-            "回答为："
+            "The answer is:"
             + colorama.Fore.BLUE
             + f"{history[-1]['content']}"
             + colorama.Style.RESET_ALL
@@ -360,7 +360,7 @@ def predict(
         max_token = max_token_all
 
     if sum(all_token_counts) > max_token and should_check_token_count:
-        status_text = f"精简token中{all_token_counts}/{max_token}"
+        status_text = f "streamline token in {all_token_counts}/{max_token}"
         logging.info(status_text)
         yield chatbot, history, status_text, all_token_counts
         iter = reduce_token_size(
@@ -376,7 +376,7 @@ def predict(
             hidden=True,
         )
         for chatbot, history, status_text, all_token_counts in iter:
-            status_text = f"Token 达到上限，已自动降低Token计数至 {status_text}"
+            status_text = f "Token reached limit, Token count has been automatically reduced to {status_text}"
             yield chatbot, history, status_text, all_token_counts
 
 
@@ -391,9 +391,9 @@ def retry(
     stream=False,
     selected_model=MODELS[0],
 ):
-    logging.info("重试中……")
+    logging.info("Retry in progress ......")
     if len(history) == 0:
-        yield chatbot, history, f"{standard_error_msg}上下文是空的", token_count
+        yield chatbot, history, f"{standard_error_msg} context is empty", token_count
         return
     history.pop()
     inputs = history.pop()["content"]
@@ -410,7 +410,7 @@ def retry(
         stream=stream,
         selected_model=selected_model,
     )
-    logging.info("重试完毕")
+    logging.info("Retry completed")
     for x in iter:
         yield x
 
@@ -427,7 +427,7 @@ def reduce_token_size(
     selected_model=MODELS[0],
     hidden=False,
 ):
-    logging.info("开始减少token数量……")
+    logging.info("Starting to reduce the number of tokens ......")
     iter = predict(
         openai_api_key,
         system_prompt,
@@ -450,4 +450,4 @@ def reduce_token_size(
         yield chatbot, history, construct_token_message(
             sum(token_count), stream=stream
         ), token_count
-    logging.info("减少token数量完毕")
+    logging.info("Reducing the number of tokens is complete")
