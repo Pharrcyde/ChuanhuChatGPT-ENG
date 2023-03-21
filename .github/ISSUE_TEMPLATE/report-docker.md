@@ -1,35 +1,35 @@
 ---
 name: Report Docker
-about: 报告使用 Docker 在服务器上部署时的错误
-title: "[Docker] 简短的错误描述"
+about: Report an error when deploying on a server using Docker
+title: "[Docker] A short description of the error"
 labels: question, docker deployment
 assignees: ''
 
 ---
 
-### 错误描述
-> 请简明描述该错误。
+### Error description
+> Please describe the error concisely.
 
-### 复现操作
-> 描述出现错误的操作步骤。
+### Reproduce the issue
+> Describe the steps to get where the error occurred.
 
-### 错误截图
-> 如果可以，请提供错误的截图，如部署的网页截图与控制台错误报告的截图。
+### Error screenshots
+> If possible, please provide a screenshot of the error, such as a screenshot of the deployment web page with a screenshot of the console error report.
 
-### 终端（控制台）中的错误报告
-> 如果可以，请复制终端中的主要错误报告。
+### Error reports in the terminal (console)
+> If possible, copy the main error report in the terminal.
 
 ```console
-(请使用错误报告替换本行)
+(Please replace this line with an error report)
 ```
 
-### 运行环境
-> **请填写以下列表：**
+### Running environment
+> **Please fill in the following list:**
 
 - OS: [e.g. Linux Ubuntu]
 - Docker version:
 - Gradio version:
 - Python (或Python3) version:
 
-### 其他
-> 补充说明
+### Other
+> Additional notes
