@@ -1,41 +1,41 @@
 ---
 name: Report others
-about: 报告其他错误（如 Hugging Face 中的 Space 等）
-title: "[其他] 简短的错误描述"
+about: Report other errors (e.g. Space in Hugging Face, etc.)
+title: "[other] short description of the error"
 labels: question
 assignees: ''
 
 ---
 
-感谢提交 issue! 请尽可能完整填写以下信息，帮助我们更好地定位问题~ 
-如果你不知道怎么填写，请先点击编辑框上方的“Preview”在预览中查看我们的说明，然后点击“Write”在空白行处填写信息~
+Thanks for submitting an issue! Please fill in the following information as completely as possible to help us locate the issue better~ 
+If you don't know how to fill it in, please click "Preview" at the top of the edit box to see our instructions in the preview, then click "Write" to fill in the information in the blank lines~
 
-### 错误描述
-> 请简明描述该错误。
+### Error Description
+> Please describe the error briefly.
 
-### 复现操作
-> 你之前干了什么，然后出现了错误呢？例如：
-> 1. 正常完成本地部署
-> 2. 在对话框中要求 ChatGPT “以LaTeX格式输出三角函数”
-> 3. ChatGPT 输出部分内容后程序被自动终止
+### Reproduce the action
+> What did you do before and the error occurred? For example.
+> 1. completed local deployment normally
+> 2. asking ChatGPT in a dialog box to "output trigonometric functions in LaTeX format"
+> 3. ChatGPT outputs part of the content and then the program is automatically terminated
 
-### 错误截图
-> 如果可以，请提供错误的截图，如本地部署的网页截图与终端错误报告的截图。
+### Error screenshot
+> If possible, provide screenshots of the errors, e.g. screenshots of the web pages of the local deployment with screenshots of the terminal error reports.
 
-### 终端（控制台）中的错误报告
-> 如果可以，请复制终端中的主要错误报告。
+### Error report in the terminal (console)
+> If possible, please copy the main error report in the terminal.
 
 ```console
-(请使用错误报告替换本行)
+(please replace this line with the error report)
 ```
 
-### 运行环境
-> **请填写以下列表：**
+### Running environment
+> **Please fill in the following list:**
 
  - OS: [e.g. Windows11 22H2]
  - Browser: [e.g. Chrome, safari]
  - Gradio version:
- - Python (或Python3) version:
+ - Python (or Python3) version:
 
-### 其他
-> 补充说明
+### Other
+> Additional notes
