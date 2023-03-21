@@ -1,43 +1,43 @@
 # -*- coding:utf-8 -*-
 
-# ChatGPT 设置
+# ChatGPT Settings
 initial_prompt = "You are a helpful assistant."
 API_URL = "https://api.openai.com/v1/chat/completions"
 HISTORY_DIR = "history"
 TEMPLATES_DIR = "templates"
 
-# 错误信息
-standard_error_msg = "☹️发生了错误："  # 错误信息的标准前缀
-error_retrieve_prompt = "请检查网络连接，或者API-Key是否有效。"  # 获取对话时发生错误
-connection_timeout_prompt = "连接超时，无法获取对话。"  # 连接超时
-read_timeout_prompt = "读取超时，无法获取对话。"  # 读取超时
-proxy_error_prompt = "代理错误，无法获取对话。"  # 代理错误
-ssl_error_prompt = "SSL错误，无法获取对话。"  # SSL 错误
-no_apikey_msg = "API key长度不是51位，请检查是否输入正确。"  # API key 长度不足 51 位
+# Error messages
+standard_error_msg = "An error occurred at ☹️:" # Standard prefix for error messages
+error_retrieve_prompt = "Please check the network connection, or if the API-Key is valid."  # An error occurred while getting the conversation
+connection_timeout_prompt = "The connection timed out and the conversation could not be accessed."  # Connection timeout
+read_timeout_prompt = "Read timeout, unable to fetch conversation."  # Read timeout
+proxy_error_prompt = "Proxy error, unable to fetch conversation."  # Proxy error
+ssl_error_prompt = "SSL error, unable to fetch conversation."  # SSL error
+no_apikey_msg = "The API key length is not 51 bits, please check if it is entered correctly."  # API key length is less than 51 bits
 
-max_token_streaming = 3500  # 流式对话时的最大 token 数
-timeout_streaming = 30  # 流式对话时的超时时间
-max_token_all = 3500  # 非流式对话时的最大 token 数
-timeout_all = 200  # 非流式对话时的超时时间
-enable_streaming_option = True  # 是否启用选择选择是否实时显示回答的勾选框
-HIDE_MY_KEY = False  # 如果你想在UI中隐藏你的 API 密钥，将此值设置为 True
+max_token_streaming = 3500  # Maximum number of tokens when streaming conversations
+timeout_streaming = 30  # Timeouts during streaming conversations
+max_token_all = 3500  # Maximum number of tokens for non-streaming conversations
+timeout_all = 200  # Timeout time for non-streaming conversations
+enable_streaming_option = True  # Whether to enable the checkbox to select whether to display answers in real time
+HIDE_MY_KEY = False  # If you want to hide your API key in the UI, set this value to True
 
 SIM_K = 5
 INDEX_QUERY_TEMPRATURE = 1.0
 
-title = """<h1 align="left" style="min-width:200px; margin-top:0;">川虎ChatGPT 🚀</h1>"""
+title = """<h1 align="left" style="min-width:200px; margin-top:0;">Chuanhu ChatGPT 🚀</h1>"""
 description = """\
 <div align="center" style="margin:16px 0">
 
 由Bilibili [土川虎虎虎](https://space.bilibili.com/29125536) 和 [明昭MZhao](https://space.bilibili.com/24807452)开发
 
-访问川虎ChatGPT的 [GitHub项目](https://github.com/GaiZhenbiao/ChuanhuChatGPT) 下载最新版脚本
+Visit Kawhoo ChatGPT's [GitHub project](https://github.com/GaiZhenbiao/ChuanhuChatGPT) to download the latest version of the script
 
-此App使用 `gpt-3.5-turbo` 大语言模型
+This app uses the `gpt-3.5-turbo` large language model
 </div>
 """
 
-summarize_prompt = "你是谁？我们刚才聊了什么？"  # 总结对话时的 prompt
+summarize_prompt = "Who are you? What did we just talk about?"  # prompt when summarizing the conversation
 
 MODELS = [
     "gpt-3.5-turbo",
@@ -46,7 +46,7 @@ MODELS = [
     "gpt-4-0314",
     "gpt-4-32k",
     "gpt-4-32k-0314",
-]  # 可选的模型
+] # Optional models
 
 
 WEBSEARCH_PTOMPT_TEMPLATE = """\
@@ -57,7 +57,7 @@ Current date: {current_date}
 
 Instructions: Using the provided web search results, write a comprehensive reply to the given query. Make sure to cite results using [[number](URL)] notation after the reference. If the provided search results refer to multiple subjects with the same name, write separate answers for each subject.
 Query: {query}
-Reply in 中文"""
+Reply in English """
 
 PROMPT_TEMPLATE = """\
 Context information is below.
@@ -70,7 +70,7 @@ Make sure to cite results using [number] notation after the reference.
 If the provided context information refer to multiple subjects with the same name, write separate answers for each subject.
 Use prior knowledge only if the given context didn't provide enough information.
 Answer the question: {query_str}
-Reply in 中文
+Reply in Chinese
 """
 
 REFINE_TEMPLATE = """\
