@@ -365,62 +365,62 @@ sudo yum install bzip2-devel
 
 <details><summary><code>openai.error.APIConnectionError</code></summary>
 
-> 如果有人也出现了`openai.error.APIConnectionError`提示的报错，那可能是`urllib3`的版本导致的。`urllib3`版本大于`1.25.11`，就会出现这个问题。
+> If someone is also getting the `openai.error.APIConnectionError` prompted error, it may be due to the `urllib3` version. If the `urllib3` version is greater than `1.25.11`, this problem will occur.
 >
-> 解决方案是卸载`urllib3`然后重装至`1.25.11`版本再重新运行一遍就可以
+> The solution is to uninstall `urllib3` and reinstall it to `1.25.11` and run it again
 
-参见：[#5](https://github.com/GaiZhenbiao/ChuanhuChatGPT/issues/5)
+See: [#5](https://github.com/GaiZhenbiao/ChuanhuChatGPT/issues/5)
 
-在终端或命令提示符中卸载`urllib3`
+Uninstall `urllib3` in terminal or command prompt
 
 ```
 pip uninstall urllib3
 ```
 
-然后，通过使用指定版本号的`pip install`命令来安装所需的版本：
+Then, install the required version by using the `pip install` command with the specified version number:.
 
 ```
 pip install urllib3==1.25.11
 ```
 
-参考自：
-[解决OpenAI API 挂了代理还是连接不上的问题](https://zhuanlan.zhihu.com/p/611080662)
+Referenced from.
+[Solve the problem where OpenAI API can't connect even after using a proxy](https://zhuanlan.zhihu.com/p/611080662)
 </details>
 
-<details><summary><code>在 Python 文件里 设定 API Key 之后验证失败</code></summary>
+<details><summary><code>Verify fails after setting API Key in Python file</code></summary>
 
-> 在ChuanhuChatbot.py中设置APIkey后验证出错，提示“发生了未知错误Orz”
+> Authentication error after setting APIkey in ChuanhuChatbot.py, prompting "An unknown error occurred Orz"
 
-参见：[#26](https://github.com/GaiZhenbiao/ChuanhuChatGPT/issues/26)
+See: [#26](https://github.com/GaiZhenbiao/ChuanhuChatGPT/issues/26)
 </details>
 
-<details><summary><code>一直等待/SSL Error</code></summary>
+<details><summary><code>Always Waiting/SSL Error</code></summary>
 
-> 更新脚本文件后，SSLError [#49](https://github.com/GaiZhenbiao/ChuanhuChatGPT/issues/49)
+> SSLError [#49](https://github.com/GaiZhenbiao/ChuanhuChatGPT/issues/49) after updating script file
 >
-> 跑起来之后，输入问题好像就没反应了，也没报错 [#25](https://github.com/GaiZhenbiao/ChuanhuChatGPT/issues/25)
+> After running, the input problem seems to be unresponsive and no error is reported [#25](https://github.com/GaiZhenbiao/ChuanhuChatGPT/issues/25)
 >
 > ```
 > requests.exceptions.SSLError: HTTPSConnectionPool(host='api.openai.com', port=443): Max retries exceeded with url: /v1/chat/completions (Caused by SSLError(SSLEOFError(8, 'EOF occurred in violation of protocol (_ssl.c:1129)')))
 > ```
 
-请参考配置代理部分，将`openai.com`加入你使用的代理App的代理规则。注意不要将`127.0.0.1`加入代理，否则会有下一个错误。
+Please refer to the Configuring Proxies section and add `openai.com` to the proxy rules of the proxy app you are using. Be careful not to add `127.0.0.1` to the proxy, otherwise you will get the next error.
 
 </details>
 
-<details><summary><code>网页提示错误 Something went wrong</code></summary>
+<details><summary><code>Webpage error Something went wrong</code></summary>
 
 > ```
 > Something went wrong
 > Expecting value: 1ine 1 column 1 (char o)
 > ```
 
-出现这个错误的原因是`127.0.0.1`被代理了，导致网页无法和后端通信。请设置代理软件，将`127.0.0.1`加入直连（具体方法见上面“一直等待/SSL Error”部分）。
+The reason for this error is that `127.0.0.1` is being proxied, so the web page cannot communicate with the backend. Please set the proxy software to add `127.0.0.1` to the direct connection (see the "Waiting/SSL Error" section above for details).
 </details>
 
 <details><summary><code>No matching distribution found for openai>=0.27.0</code></summary>
 
-`openai`这个依赖已经被移除了。请尝试下载最新版脚本。
+The dependency `openai` has been removed. Please try to download the latest version of the script.
 </details>
 
 ## Starchart
@@ -433,8 +433,8 @@ pip install urllib3==1.25.11
   <img src="https://contrib.rocks/image?repo=GaiZhenbiao/ChuanhuChatGPT" />
 </a>
 
-## 捐款
+## Donation
 
-🐯请作者喝可乐～
+🐯 Buy the author a Coke ~
 
 <img width="350" alt="image" src="https://user-images.githubusercontent.com/51039745/223626874-f471e5f5-8a06-43d5-aa31-9d2575b6f631.JPG">
