@@ -1,11 +1,11 @@
-<h1 align="center">川虎 ChatGPT 🐯 Chuanhu ChatGPT</h1>
+<h1 align="center">ChatGPT 🐯 Chuanhu ChatGPT</h1>
 <div align="center">
   <a href="https://github.com/GaiZhenBiao/ChuanhuChatGPT">
     <img src="https://user-images.githubusercontent.com/70903329/226267132-e5295925-f53a-4e9d-a221-6099583da98d.png" alt="Logo" height="156">
   </a>
 
   <p align="center">
-    <h3>为ChatGPT API提供了一个轻快好用的Web图形界面</h3>
+    <h3>Provides a light and easy to use web GUI for the ChatGPT API</h3>
     <p align="center">
       <a href="https://github.com/GaiZhenbiao/ChuanhuChatGPT/blob/main/LICENSE">
         <img alt="Tests Passing" src="https://img.shields.io/github/license/GaiZhenbiao/ChuanhuChatGPT" />
@@ -23,15 +23,15 @@
         <img alt="GitHub pull requests" src="https://img.shields.io/github/issues-pr/GaiZhenBiao/ChuanhuChatGPT?color=0088ff" />
       </a>
       <p>
-      	实时回复 / 无限对话 / 保存对话记录 / 预设Prompt集 / 联网搜索 / 根据文件回答
+      	Real-time replies / Unlimited conversations / Save conversation logs / Preset Prompt sets / Network search / Upload files
       	<br/>
-      	渲染LaTex / 渲染表格 / 渲染代码 / 代码高亮 / 自定义api-URL / “小而美”的体验 / Ready for GPT-4
+      	Render LaTex / Render Forms / Render Code / Code Highlighting / Custom api-URL / "Small and Beautiful" Experience / Ready for GPT-4
       </p>
-      <a href="https://www.bilibili.com/video/BV1mo4y1r7eE"><strong>视频教程</strong></a>
+      <a href="https://www.bilibili.com/video/BV1mo4y1r7eE"><strong>Video Tutorials</strong></a>
         ·
-      <a href="https://www.bilibili.com/video/BV1184y1w7aP"><strong>2.0介绍视频</strong></a>
+      <a href="https://www.bilibili.com/video/BV1184y1w7aP"><strong>2.0 Introduction Video</strong></a>
 	·
-      <a href="https://huggingface.co/spaces/JohnSmith9982/ChuanhuChatGPT"><strong>在线体验</strong></a>
+      <a href="https://huggingface.co/spaces/JohnSmith9982/ChuanhuChatGPT"><strong>Online Experience</strong></a>
     </p>
     <p align="center">
       <img alt="Animation Demo" src="https://user-images.githubusercontent.com/51039745/226255695-6b17ff1f-ea8d-464f-b69b-a7b6b68fffe8.gif" />
@@ -39,89 +39,89 @@
   </p>
 </div>
 
-## 目录
-|[使用技巧](#使用技巧)|[安装方式](#安装方式)|[疑难杂症解决](#疑难杂症解决)| [给作者买可乐🥤](#捐款) |
+## Contents
+|[UsageTips](#UsageTips)|[Installation](#Installation)|[Troubleshooting](#Troubleshooting)| [Buy a Coke for the author🥤](#Donation) |
 |  ----  | ----  | ----  | --- |
 
-## 使用技巧
+## Usage Tips
 
-- 使用System Prompt可以很有效地设定前提条件。
-- 使用Prompt模板功能时，选择Prompt模板集合文件，然后从下拉菜单中选择想要的prompt。
-- 如果回答不满意，可以使用`重新生成`按钮再试一次
-- 对于长对话，可以使用`优化Tokens`按钮减少Tokens占用。
-- 输入框支持换行，按`shift enter`即可。
-- 部署到服务器：将程序最后一句改成`demo.launch(server_name="0.0.0.0", server_port=<你的端口号>)`。
-- 获取公共链接：将程序最后一句改成`demo.launch(share=True)`。注意程序必须在运行，才能通过公共链接访问。
-- 在Hugging Face上使用：建议在右上角 **复制Space** 再使用，这样能大大减少排队时间，App反应也会更加迅速。
+- Prerequisites can be set very efficiently using System Prompt.
+- To use the Prompt template function, select the Prompt template collection file and then select the desired prompt from the drop-down menu.
+- If you are not satisfied with the answer, you can use the `Rebuild` button and try again.
+- For long conversations, you can use the `Optimize Tokens` button to reduce Tokens usage.
+- The input box supports line feeds, just press `shift enter`.
+- Deploy to server: change the last sentence of the program to `demo.launch(server_name="0.0.0.0", server_port=<your port number>)`.
+- Get the public link: change the last sentence of the program to `demo.launch(share=True)`. Note that the program must be running in order to be accessible via public links.
+- Use on Hugging Face: It is recommended to **Duplicate this Space** in the upper right corner before using it, this will greatly reduce the queuing time and the app will respond more quickly.
   <img width="300" alt="image" src="https://user-images.githubusercontent.com/51039745/223447310-e098a1f2-0dcf-48d6-bcc5-49472dd7ca0d.png">
 
-## 安装方式
+## Installation
 
-### 本地部署
+### Local deployment
 
-1. **下载本项目**
+1. **Download this project**
 
 	```shell
 	git clone https://github.com/GaiZhenbiao/ChuanhuChatGPT.git
 	cd ChuanhuChatGPT
 	```
-	或者，点击网页右上角的 `Download ZIP`，下载并解压完成后进入文件夹，进入`终端`或`命令提示符`。
+	Or, click `Download ZIP` in the upper right corner of the web page, download and unzip it, then enter the folder and go to `Terminal` or `Command Prompt`.
 
-	如果你使用Windows，应该在文件夹里按住`shift`右键，选择“在终端中打开”。如果没有这个选项，选择“在此处打开Powershell窗口”。如果你使用macOS，可以在Finder底部的路径栏中右键当前文件夹，选择`服务-新建位于文件夹位置的终端标签页`。
+	If you are using Windows, you should hold down `shift` and right click in the folder and select "Open in Terminal". If this option is not available, select "Open Powershell window here". If you are using macOS, you can right click on the current folder in the path bar at the bottom of the Finder and select `Service - New Terminal Tab in Folder Location`.
 
 	<img width="200" alt="downloadZIP" src="https://user-images.githubusercontent.com/23137268/223696317-b89d2c71-c74d-4c6d-8060-a21406cfb8c8.png">
 
-2. **填写API密钥**
+2. **Fill in the API key**
 
-	以下3种方法任选其一：
+	Choose any one of the following 3 methods.
 
-	<details><summary>1. 在图形界面中填写你的API密钥</summary>
+	<details><summary>1. Fill in your API key in the GUI</summary>
 
-	这样设置的密钥会在页面刷新后被清除。
+	Keys set this way will be cleared after the page is refreshed.
 
 	<img width="760" alt="image" src="https://user-images.githubusercontent.com/51039745/222873756-3858bb82-30b9-49bc-9019-36e378ee624d.png"></details>
-	<details><summary>2. 在直接代码中填入你的 OpenAI API 密钥</summary>
+	<details><summary>2. Fill in your OpenAI API key in the direct code</summary>
 
-	这样设置的密钥会成为默认密钥。在这里还可以选择是否在UI中隐藏密钥输入框。
+	The key set in this way will become the default key. Here you can also choose whether to hide the key input box in the UI.
 
 	<img width="525" alt="image" src="https://user-images.githubusercontent.com/51039745/223440375-d472de4b-aa7f-4eae-9170-6dc2ed9f5480.png"></details>
 
-	<details><summary>3. 在文件中设定默认密钥、用户名密码</summary>
+	<details><summary>3. Set the default key, username password in the file</summary>
 
-	这样设置的密钥可以在拉取项目更新之后保留。
+	The key set in this way can be retained after pulling the project update.
 
-	在项目文件夹中新建这两个文件：`api_key.txt` 和 `auth.json`。
+	Create these two new files: `api_key.txt` and `auth.json` in the project folder.
 
-	在`api_key.txt`中填写你的API-Key，注意不要填写任何无关内容。
+	Fill in your API-Key in `api_key.txt`, be careful not to fill in any irrelevant content。
 
-	在`auth.json`中填写你的用户名和密码。
+	Fill in your username and password in `auth.json`.
 
 	```
 	{
-    "username": "用户名",
-    "password": "密码"
+    "username": "Username",
+    "password": "Password"
 	}
 	```
 
 	</details>
 
-3. **安装依赖**
+3. **Installation of Dependencies**
 
-	在终端中输入下面的命令，然后回车。
+	Type the following command in the terminal and enter.
 
 	```shell
 	pip install -r requirements.txt
 	```
 
-	如果报错，试试
+	If an error is reported, try
 
 	```shell
 	pip3 install -r requirements.txt
 	```
 
-	如果还是不行，请先[安装Python](https://www.runoob.com/python/python-install.html)。
+	If it still doesn't work, please [install Python] first(https://www.runoob.com/python/python-install.html)。
 
-	如果下载慢，建议[配置清华源](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)，或者科学上网。
+	If the download is slow, we suggest [Configure Tsinghua Source](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/), or scientific Internet access.
 
 4. **启动**
 
