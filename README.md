@@ -168,12 +168,12 @@ docker run -d --name chatgpt \
 
 Note: The `USERNAME` and `PASSWORD` lines can be omitted. If omitted, authentication will not be enabled.
 
-#### 查看运行状态
+#### View run status
 ```shell
 docker logs chatgpt
 ```
 
-#### 也可修改脚本后手动构建镜像
+#### You can also modify the script and build the image manually
 
 ```shell
 docker build -t chuanhuchatgpt:latest .
@@ -181,46 +181,46 @@ docker build -t chuanhuchatgpt:latest .
 </details>
 
 
-### 远程部署
+### Remote deployment
 
-<details><summary>如果需要在公网服务器部署本项目，请阅读该部分</summary>
+<details><summary>Please read this section if you need to deploy this project on a public server</summary>
 
-### 部署到公网服务器
+### Deploy to a public server
 
-将最后一句修改为
+Change the last sentence to read
 
 ```
 demo.queue().launch(server_name="0.0.0.0", server_port=7860, share=False) # 可自定义端口
 ```
-### 用账号密码保护页面
+### Protect page with account password
 
-将最后一句修改为
+Change the last sentence to read
 
 ```
-demo.queue().launch(server_name="0.0.0.0", server_port=7860,auth=("在这里填写用户名", "在这里填写密码")) # 可设置用户名与密码
+demo.queue().launch(server_name="0.0.0.0", server_port=7860,auth=("fill in username here", "fill in password here")) # You can set username and password
 ```
 
-### 配置 Nginx 反向代理
+### Configuring Nginx Reverse Proxy
 
-注意：配置反向代理不是必须的。如果需要使用域名，则需要配置 Nginx 反向代理。
+Note: Configuring a reverse proxy is not required. If you need to use a domain name, you need to configure an Nginx reverse proxy.
 
-又及：目前配置认证后，Nginx 必须配置 SSL，否则会出现 [Cookie 不匹配问题](https://github.com/GaiZhenbiao/ChuanhuChatGPT/issues/89)。
+Also: Currently, after configuring authentication, Nginx must be configured with SSL, otherwise [Cookie mismatch issue](https://github.com/GaiZhenbiao/ChuanhuChatGPT/issues/89) will occur.
 
-添加独立配置文件：
+Adding a standalone profile.
 ```nginx
 server {
 	listen 80;
-	server_name /域名/;   # 请填入你设定的域名
+	server_name /domain/; # Please fill in the domain name you set
 	access_log off;
 	error_log off;
 	location / {
-		proxy_pass http://127.0.0.1:7860;   # 注意端口号
+		proxy_pass http://127.0.0.1:7860;   # Note the port number
 		proxy_redirect off;
 		proxy_set_header Host $host;
 		proxy_set_header X-Real-IP $remote_addr;
 		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-		proxy_set_header Upgrade $http_upgrade;		# Websocket配置
-		proxy_set_header Connection $connection_upgrade;		#Websocket配置
+		proxy_set_header Upgrade $http_upgrade;		# Websocket configuration
+		proxy_set_header Connection $connection_upgrade;		#Websocket configuration
 		proxy_max_temp_file_size 0;
 		client_max_body_size 10m;
 		client_body_buffer_size 128k;
@@ -235,8 +235,8 @@ server {
 }
 ```
 
-修改`nginx.conf`配置文件（通常在`/etc/nginx/nginx.conf`），向http部分添加如下配置：
-（这一步是为了配置websocket连接，如之前配置过可忽略）
+Modify the `nginx.conf` configuration file (usually in `/etc/nginx/nginx.conf`) and add the following configuration to the http section.
+(this step is to configure the websocket connection, if previously configured can be ignored)
 ```nginx
 map $http_upgrade $connection_upgrade {
   default upgrade;
@@ -244,14 +244,14 @@ map $http_upgrade $connection_upgrade {
   }
 ```
 
-为了同时配置域名访问和身份认证，需要配置SSL的证书，可以参考[这篇博客](https://www.gzblog.tech/2020/12/25/how-to-config-hexo/#%E9%85%8D%E7%BD%AEHTTPS)一键配置
+In order to configure both domain access and authentication, you need to configure the SSL certificate, you can refer to [this blog](https://www.gzblog.tech/2020/12/25/how-to-config-hexo/#%E9%85%8D%E7%BD%AEHTTPS) for one-click configuration
 
 
-### 全程使用Docker 为ChuanhuChatGPT 开启HTTPS
+### Enabling HTTPS for ChuanhuChatGPT using Docker all the way
 
-如果你的VPS 80端口与443端口没有被占用，则可以考虑如下的方法，只需要将你的域名提前绑定到你的VPS 的IP即可。此方法由[@iskoldt-X](https://github.com/iskoldt-X) 提供。
+If your VPS port 80 and 443 are not occupied, then you can consider the following method, just bind your domain name to your VPS IP in advance. This method is provided by [@iskoldt-X](https://github.com/iskoldt-X).
 
-首先，运行[nginx-proxy](https://github.com/nginx-proxy/nginx-proxy)
+First, run [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy)
 
 ```
 docker run --detach \
@@ -264,7 +264,7 @@ docker run --detach \
     --volume /var/run/docker.sock:/tmp/docker.sock:ro \
     nginxproxy/nginx-proxy
 ```
-接着，运行[acme-companion](https://github.com/nginx-proxy/acme-companion)，这是用来自动申请TLS 证书的容器
+Next, run [acme-companion](https://github.com/nginx-proxy/acme-companion), which is the container used to automatically request TLS certificates
 
 ```
 docker run --detach \
@@ -272,51 +272,51 @@ docker run --detach \
     --volumes-from nginx-proxy \
     --volume /var/run/docker.sock:/var/run/docker.sock:ro \
     --volume acme:/etc/acme.sh \
-    --env "DEFAULT_EMAIL=你的邮箱（用于申请TLS 证书）" \
+    --env "DEFAULT_EMAIL=your email (for TLS certificate request)" \
     nginxproxy/acme-companion
 ```
 
-最后，可以运行ChuanhuChatGPT
+Finally, you can run ChuanhuChatGPT
 ```
 docker run -d --name chatgpt \
-	-e my_api_key="你的API" \
-	-e USERNAME="替换成用户名" \
-	-e PASSWORD="替换成密码" \
+	-e my_api_key="Your API" \
+	-e USERNAME="Replace with username" \
+	-e PASSWORD="Replace with password" \
 	-v ~/chatGPThistory:/app/history \
-	-e VIRTUAL_HOST=你的域名 \
+	-e VIRTUAL_HOST=Your domain name \
 	-e VIRTUAL_PORT=7860 \
-	-e LETSENCRYPT_HOST=你的域名 \
+	-e LETSENCRYPT_HOST=Your domain name \
 	tuchuanhuhuhu/chuanhuchatgpt:latest
 ```
-如此即可为ChuanhuChatGPT实现自动申请TLS证书并且开启HTTPS
+This will enable automatic application of TLS certificate and HTTPS for ChuanhuChatGPT.
 </details>
 
 ---
 
-## 疑难杂症解决
+## Troubleshooting
 
-首先，请先尝试拉取本项目的最新更改，使用最新的代码重试。
+First, try pulling the latest changes for this project and retry with the latest code.
 
-点击网页上的 `Download ZIP` 下载最新代码，或
+Click `Download ZIP` on the web page to download the latest code, or
 ```shell
 git pull https://github.com/GaiZhenbiao/ChuanhuChatGPT.git main -f
 ```
 
-如果还有问题，可以再尝试重装 gradio:
+If you still have problems, try reinstalling gradio again:
 
 ```
 pip install gradio --upgrade --force-reinstall
 ```
 
-很多时候，这样就可以解决问题。
+Very often, this solves the problem.
 
-### 常见问题
+### Frequently Asked Questions
 
-<details><summary>配置代理</summary>
+<details><summary>Configuration Proxy</summary>
 
-OpenAI不允许在不受支持的地区使用API，否则可能会导致账号被风控。下面给出代理配置示例：
+OpenAI does not allow the use of the API in unsupported regions, otherwise it may result in the account being winded up. Example proxy configurations are given below.
 
-在Clash配置文件中，加入：
+In the Clash configuration file, add.
 
 ```
 rule-providers:
@@ -329,23 +329,23 @@ rule-providers:
 
 rules:
  - RULE-SET,private,DIRECT
- - DOMAIN-SUFFIX,openai.com,你的代理规则
+ - DOMAIN-SUFFIX,openai.com,your proxy rules
 ```
 
-如果你使用 Surge，请在配置文件中加入：
+If you use Surge, add to the configuration file.
 
 ```
 [Rule]
 DOMAIN-SET,https://cdn.jsdelivr.net/gh/Loyalsoldier/surge-rules@release/private.txt,DIRECT
-DOMAIN-SUFFIX,openai.com,你的代理规则
+DOMAIN-SUFFIX,openai.com,your proxy rules
 ```
-注意，如果你本来已经有对应的字段，请将这些规则合并到已有字段中，否则代理软件会报错。
+Note that if you already have corresponding fields, please merge these rules into the existing fields, otherwise the proxy software will report an error.
 
 </details>
 
 <details><summary><code>TypeError: Base.set () got an unexpected keyword argument</code></summary>
 
-这是因为川虎ChatGPT紧跟Gradio发展步伐，你的Gradio版本太旧了。请升级依赖：
+This is because Chuanhu ChatGPT keeps pace with Gradio development, and your Gradio version is too old. Please upgrade the dependency on.
 
 ```
 pip install -r requirements.txt --upgrade
@@ -354,9 +354,9 @@ pip install -r requirements.txt --upgrade
 
 <details><summary><code>No module named '_bz2'</code></summary>
 
-> 部署在CentOS7.6,Python3.11.0上,最后报错ModuleNotFoundError: No module named '_bz2'
+> Deployed on CentOS7.6,Python3.11.0, last error is ModuleNotFoundError. no module named '_bz2'
 
-安装python前先下载 `bzip` 编译环境
+Download the `bzip` compiler environment before installing python
 
 ```
 sudo yum install bzip2-devel
