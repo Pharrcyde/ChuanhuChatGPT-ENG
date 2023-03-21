@@ -1,17 +1,17 @@
 ---
 name: Feature request
-about: 请求更多功能！
-title: "[功能请求] 简明描述你想要增加的功能"
+about: Request more features!
+title: "[Feature Request] Briefly describe the feature you want to add"
 labels: feature request
 assignees: ''
 
 ---
 
-### 该功能请求是否与某个问题相关？
-> 描述你遇到的问题~
+### Whether the feature request is related to an issue？
+> Describe the problem you are experiencing ~
 
-### 可能的解决办法
-> 如果可以，给出一个解决思路~
+### Possible solutions
+> If you can, provide a possible solution to the issue~
 
-### 其他
-> 补充说明
+### Other
+> Additional information
