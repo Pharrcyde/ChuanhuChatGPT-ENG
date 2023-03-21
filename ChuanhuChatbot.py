@@ -15,7 +15,7 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] [%(filename)s:%(lineno)d] %(message)s",
 )
 
-my_api_key = ""  # 在这里输入你的 API 密钥
+my_api_key = ""  # Enter your API key here
 
 # if we are running in Docker
 if os.environ.get("dockerrun") == "yes":
@@ -126,7 +126,7 @@ with gr.Blocks(
     user_api_key = gr.State(my_api_key)
     TRUECOMSTANT = gr.State(True)
     FALSECONSTANT = gr.State(False)
-    topic = gr.State("未命名对话历史记录")
+    topic = gr.State("unnamed conversation history")
 
     with gr.Row():
         gr.HTML(title)
@@ -139,17 +139,17 @@ with gr.Blocks(
             with gr.Row(scale=1):
                 with gr.Column(scale=12):
                     user_input = gr.Textbox(
-                        show_label=False, placeholder="在这里输入"
+                        show_label=False, placeholder="Enter here"
                     ).style(container=False)
                 with gr.Column(min_width=70, scale=1):
-                    submitBtn = gr.Button("发送", variant="primary")
+                    submitBtn = gr.Button("send", variant="primary")
             with gr.Row(scale=1):
                 emptyBtn = gr.Button(
-                    "🧹 新的对话",
+                    "🧹 Start New Conversation",
                 )
-                retryBtn = gr.Button("🔄 重新生成")
-                delLastBtn = gr.Button("🗑️ 删除一条对话")
-                reduceTokenBtn = gr.Button("♻️ 总结对话")
+                retryBtn = gr.Button("🔄 Regenerate")
+                delLastBtn = gr.Button("🗑️ Delete the conversation")
+                reduceTokenBtn = gr.Button("♻️ Summarize the conversation.")
 
         with gr.Column():
             with gr.Column(min_width=50, scale=1):
@@ -163,38 +163,38 @@ with gr.Blocks(
                         label="API-Key",
                     )
                     model_select_dropdown = gr.Dropdown(
-                        label="选择模型", choices=MODELS, multiselect=False, value=MODELS[0]
+                        label="Select Model", choices=MODELS, multiselect=False, value=MODELS[0]
                     )
                     use_streaming_checkbox = gr.Checkbox(
-                        label="实时传输回答", value=True, visible=enable_streaming_option
+                        label="Real-time transmission reply", value=True, visible=enable_streaming_option
                     )
-                    use_websearch_checkbox = gr.Checkbox(label="使用在线搜索", value=False)
-                    index_files = gr.Files(label="上传索引文件", type="file", multiple=True)
+                    use_websearch_checkbox = gr.Checkbox(label="use online search", value=False)
+                    index_files = gr.Files(label="Upload index files", type="file", multiple=True)
 
                 with gr.Tab(label="Prompt"):
                     systemPromptTxt = gr.Textbox(
                         show_label=True,
-                        placeholder=f"在这里输入System Prompt...",
+                        placeholder=f "Enter System Prompt here..." ,
                         label="System prompt",
                         value=initial_prompt,
                         lines=10,
                     ).style(container=False)
-                    with gr.Accordion(label="加载Prompt模板", open=True):
+                    with gr.Accordion(label="Load Prompt Template", open=True):
                         with gr.Column():
                             with gr.Row():
                                 with gr.Column(scale=6):
                                     templateFileSelectDropdown = gr.Dropdown(
-                                        label="选择Prompt模板集合文件",
+                                        label="Select Prompt Template Collection File",
                                         choices=get_template_names(plain=True),
                                         multiselect=False,
                                         value=get_template_names(plain=True)[0],
                                     ).style(container=False)
                                 with gr.Column(scale=1):
-                                    templateRefreshBtn = gr.Button("🔄 刷新")
+                                    templateRefreshBtn = gr.Button("🔄 Refresh")
                             with gr.Row():
                                 with gr.Column():
                                     templateSelectDropdown = gr.Dropdown(
-                                        label="从Prompt模板中加载",
+                                        label="Load from Prompt Template",
                                         choices=load_template(
                                             get_template_names(plain=True)[0], mode=1
                                         ),
@@ -204,40 +204,40 @@ with gr.Blocks(
                                         )[0],
                                     ).style(container=False)
 
-                with gr.Tab(label="保存/加载"):
-                    with gr.Accordion(label="保存/加载对话历史记录", open=True):
+                with gr.Tab(label="Save/Load"):
+                    with gr.Accordion(label="Save/load conversation history", open=True):
                         with gr.Column():
                             with gr.Row():
                                 with gr.Column(scale=6):
                                     historyFileSelectDropdown = gr.Dropdown(
-                                        label="从列表中加载对话",
+                                        label="Loading conversations from a list",
                                         choices=get_history_names(plain=True),
                                         multiselect=False,
                                         value=get_history_names(plain=True)[0],
                                     )
                                 with gr.Column(scale=1):
-                                    historyRefreshBtn = gr.Button("🔄 刷新")
+                                    historyRefreshBtn = gr.Button("🔄 Refresh")
                             with gr.Row():
                                 with gr.Column(scale=6):
                                     saveFileName = gr.Textbox(
                                         show_label=True,
-                                        placeholder=f"设置文件名: 默认为.json，可选为.md",
-                                        label="设置保存文件名",
-                                        value="对话历史记录",
+                                        placeholder=f"Set file name: default is .json, optional is .md",
+                                        label="Set the save file name",
+                                        value="Conversation History",
                                     ).style(container=True)
                                 with gr.Column(scale=1):
-                                    saveHistoryBtn = gr.Button("💾 保存对话")
-                                    exportMarkdownBtn = gr.Button("📝 导出为Markdown")
-                                    gr.Markdown("默认保存于history文件夹")
+                                    saveHistoryBtn = gr.Button("💾 Save the conversation")
+                                    exportMarkdownBtn = gr.Button("📝 Export as Markdown")
+                                    gr.Markdown("Saved in the history folder by default")
                             with gr.Row():
                                 with gr.Column():
                                     downloadFile = gr.File(interactive=True)
 
-                with gr.Tab(label="高级"):
-                    default_btn = gr.Button("🔙 恢复默认设置")
-                    gr.Markdown("# ⚠️ 务必谨慎更改 ⚠️\n\n如果无法使用请恢复默认设置")
+                with gr.Tab(label="Advanced"):
+                    default_btn = gr.Button("🔙 Restore default settings")
+                    gr.Markdown("# ⚠️ Be sure to change ⚠️\n\n carefully if it doesn't work please restore the default settings")
 
-                    with gr.Accordion("参数", open=False):
+                    with gr.Accordion("Parameters", open=False):
                         top_p = gr.Slider(
                             minimum=-0,
                             maximum=1.0,
@@ -257,20 +257,20 @@ with gr.Blocks(
 
                     apiurlTxt = gr.Textbox(
                         show_label=True,
-                        placeholder=f"在这里输入API地址...",
-                        label="API地址",
+                        placeholder=f"Enter the API address here...",
+                        label="API Address",
                         value="https://api.openai.com/v1/chat/completions",
                         lines=2,
                     )
-                    changeAPIURLBtn = gr.Button("🔄 切换API地址")
+                    changeAPIURLBtn = gr.Button("🔄 Toggle API address")
                     proxyTxt = gr.Textbox(
                         show_label=True,
-                        placeholder=f"在这里输入代理地址...",
-                        label="代理地址（示例：http://127.0.0.1:10809）",
+                        placeholder=f"Enter the proxy address here...",
+                        label="Proxy address (example)：http://127.0.0.1:10809）",
                         value="",
                         lines=2,
                     )
-                    changeProxyBtn = gr.Button("🔄 设置代理地址")
+                    changeProxyBtn = gr.Button("🔄 Set proxy address")
 
     gr.Markdown(description)
 
@@ -427,11 +427,11 @@ with gr.Blocks(
 
 logging.info(
     colorama.Back.GREEN
-    + "\n川虎的温馨提示：访问 http://localhost:7860 查看界面"
+    + "Helpful tips from \n Chuanhu: visit http://localhost:7860 to view the interface"
     + colorama.Style.RESET_ALL
 )
-# 默认开启本地服务器，默认可以直接从IP访问，默认不创建公开分享链接
-demo.title = "川虎ChatGPT 🚀"
+# Local server is enabled by default, direct access from IP is available by default, no public sharing links are created by default
+demo.title = "Chuanhu ChatGPT 🚀"
 
 if __name__ == "__main__":
     # if running in Docker
@@ -447,7 +447,7 @@ if __name__ == "__main__":
         if authflag:
             demo.queue().launch(share=False, auth=(username, password))
         else:
-            demo.queue().launch(share=False)  # 改为 share=True 可以创建公开分享链接
-        # demo.queue().launch(server_name="0.0.0.0", server_port=7860, share=False) # 可自定义端口
-        # demo.queue().launch(server_name="0.0.0.0", server_port=7860,auth=("在这里填写用户名", "在这里填写密码")) # 可设置用户名与密码
-        # demo.queue().launch(auth=("在这里填写用户名", "在这里填写密码")) # 适合Nginx反向代理
+            demo.queue().launch(share=False)  # Change to share=True to create a public share link
+        # demo.queue().launch(server_name="0.0.0.0", server_port=7860, share=False) # Customizable ports
+        # demo.queue().launch(server_name="0.0.0.0", server_port=7860,auth=("Fill in username here", "Fill in password here")) # User name and password can be set
+        # demo.queue().launch(auth=("fill in username here", "fill in password here")) # for Nginx reverse proxy
