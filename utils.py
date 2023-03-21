@@ -123,23 +123,23 @@ def construct_assistant(text):
 
 
 def construct_token_message(token, stream=False):
-    return f"Token 计数: {token}"
+    return f "Token count: {token}"
 
 
 def delete_last_conversation(chatbot, history, previous_token_count):
     if len(chatbot) > 0 and standard_error_msg in chatbot[-1][1]:
-        logging.info("由于包含报错信息，只删除chatbot记录")
+        logging.info("Only chatbot records are deleted due to the inclusion of error messages")
         chatbot.pop()
         return chatbot, history
     if len(history) > 0:
-        logging.info("删除了一组对话历史")
+        logging.info("Deleted a set of conversation history")
         history.pop()
         history.pop()
     if len(chatbot) > 0:
-        logging.info("删除了一组chatbot对话")
+        logging.info("Deleted a set of chatbot conversations")
         chatbot.pop()
     if len(previous_token_count) > 0:
-        logging.info("删除了一组对话的token计数记录")
+        logging.info("Deleted a token count record for a set of conversations")
         previous_token_count.pop()
     return (
         chatbot,
@@ -150,7 +150,7 @@ def delete_last_conversation(chatbot, history, previous_token_count):
 
 
 def save_file(filename, system, history, chatbot):
-    logging.info("保存对话历史中……")
+    logging.info("Saving conversation history in ......")
     os.makedirs(HISTORY_DIR, exist_ok=True)
     if filename.endswith(".json"):
         json_s = {"system": system, "history": history, "chatbot": chatbot}
@@ -163,7 +163,7 @@ def save_file(filename, system, history, chatbot):
             md_s += f"\n{data['role']}: \n- {data['content']} \n"
         with open(os.path.join(HISTORY_DIR, filename), "w", encoding="utf8") as f:
             f.write(md_s)
-    logging.info("保存对话历史完毕")
+    logging.info("Finished saving conversation history")
     return os.path.join(HISTORY_DIR, filename)
 
 
@@ -184,7 +184,7 @@ def export_markdown(filename, system, history, chatbot):
 
 
 def load_chat_history(filename, system, history, chatbot):
-    logging.info("加载对话历史中……")
+    logging.info("Loading conversation history in ......")
     if type(filename) != str:
         filename = filename.name
     try:
@@ -192,7 +192,7 @@ def load_chat_history(filename, system, history, chatbot):
             json_s = json.load(f)
         try:
             if type(json_s["history"][0]) == str:
-                logging.info("历史记录格式为旧版，正在转换……")
+                logging.info("History format is old, being converted ......")
                 new_history = []
                 for index, item in enumerate(json_s["history"]):
                     if index % 2 == 0:
@@ -202,12 +202,12 @@ def load_chat_history(filename, system, history, chatbot):
                 json_s["history"] = new_history
                 logging.info(new_history)
         except:
-            # 没有对话历史
+            # No history of dialogue
             pass
-        logging.info("加载对话历史完毕")
+        logging.info("Loading conversation history complete")
         return filename, json_s["system"], json_s["history"], json_s["chatbot"]
     except FileNotFoundError:
-        logging.info("没有找到对话历史文件，不执行任何操作")
+        logging.info("No conversation history file found, no action performed")
         return filename, system, history, chatbot
 
 
@@ -216,7 +216,7 @@ def sorted_by_pinyin(list):
 
 
 def get_file_names(dir, plain=False, filetypes=[".json"]):
-    logging.info(f"获取文件名列表，目录为{dir}，文件类型为{filetypes}，是否为纯文本列表{plain}")
+    logging.info(f "Get a list of file names, directory {dir}, file type {filetypes}, whether it is a plain text list {plain}")
     files = []
     try:
         for type in filetypes:
@@ -233,12 +233,12 @@ def get_file_names(dir, plain=False, filetypes=[".json"]):
 
 
 def get_history_names(plain=False):
-    logging.info("获取历史记录文件名列表")
+    logging.info("Get a list of history filenames")
     return get_file_names(HISTORY_DIR, plain)
 
 
 def load_template(filename, mode=0):
-    logging.info(f"加载模板文件{filename}，模式为{mode}（0为返回字典和下拉菜单，1为返回下拉菜单，2为返回字典）")
+    logging.info(f "Loading template file {filename} with mode {mode} (0 to return dictionary and dropdown menu, 1 to return dropdown menu, 2 to return dictionary)")
     lines = []
     logging.info("Loading template...")
     if filename.endswith(".json"):
@@ -264,12 +264,12 @@ def load_template(filename, mode=0):
 
 
 def get_template_names(plain=False):
-    logging.info("获取模板文件名列表")
+    logging.info("Get a list of template filenames")
     return get_file_names(TEMPLATES_DIR, plain, filetypes=[".csv", "json"])
 
 
 def get_template_content(templates, selection, original_system_prompt):
-    logging.info(f"应用模板中，选择为{selection}，原始系统提示为{original_system_prompt}")
+    logging.info(f "In the application template, the selection is {selection} and the original system prompt is {original_system_prompt}")
     try:
         return templates[selection]
     except:
@@ -277,7 +277,7 @@ def get_template_content(templates, selection, original_system_prompt):
 
 
 def reset_state():
-    logging.info("重置状态")
+    logging.info("Reset Status")
     return [], [], [], construct_token_message(0)
 
 
@@ -290,20 +290,20 @@ def reset_default():
     API_URL = "https://api.openai.com/v1/chat/completions"
     os.environ.pop("HTTPS_PROXY", None)
     os.environ.pop("https_proxy", None)
-    return gr.update(value=API_URL), gr.update(value=""), "API URL 和代理已重置"
+    return gr.update(value=API_URL), gr.update(value=""), "API URL and proxy have been reset"
 
 
 def change_api_url(url):
     global API_URL
     API_URL = url
-    msg = f"API地址更改为了{url}"
+    msg = f "API address changed to {url}"
     logging.info(msg)
     return msg
 
 
 def change_proxy(proxy):
     os.environ["HTTPS_PROXY"] = proxy
-    msg = f"代理更改为了{proxy}"
+    msg = f "Proxy changed to {proxy}"
     logging.info(msg)
     return msg
 
@@ -320,7 +320,7 @@ def hide_middle_chars(s):
 
 def submit_key(key):
     key = key.strip()
-    msg = f"API密钥更改为了{hide_middle_chars(key)}"
+    msg = f "API key changed to {hide_middle_chars(key)}"
     logging.info(msg)
     return key, msg
 
@@ -339,16 +339,16 @@ def get_geoip():
     response = requests.get('https://ipapi.co/json/', timeout=5)
     data = response.json()
     if "error" in data.keys():
-        logging.warning(f"无法获取IP地址信息。\n{data}")
+        logging.warning(f "Unable to get IP address information. \n{data}")
         if data['reason'] == "RateLimited":
-            return f"获取IP地理位置失败，因为达到了检测IP的速率限制。聊天功能可能仍然可用，但请注意，如果您的IP地址在不受支持的地区，您可能会遇到问题。"
+            return f "Failed to get IP geolocation because the rate limit for detecting IPs was reached. The chat feature may still be available, but please note that you may experience problems if your IP address is in an unsupported region."
         else:
-            return f"获取IP地理位置失败。原因：{data['reason']}"
+            return f "Failed to get IP geolocation. Reason: {data['reason']}"
     else:
         country = data['country_name']
         if country == "China":
-            text = "**您的IP区域：中国。请立即检查代理设置，在不受支持的地区使用API可能导致账号被封禁。**"
+            text = "**Your IP region: China. Please check the proxy settings immediately, using the API in an unsupported region may result in account banning. **"
         else:
-            text = f"您的IP区域：{country}。"
+            text = f "Your IP region: {country}."
         logging.info(text)
         return text
